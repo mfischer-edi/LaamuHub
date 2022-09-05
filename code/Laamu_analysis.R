@@ -81,7 +81,7 @@ set.seed(1506)
 
 nmds2 <- metaMDS(data1, k = 2, trymax = 100, trace = F, autotransform = FALSE, distance="bray")
 nmds2
-#Stress: 0.1210596
+
 stressplot(nmds2)
 plot(nmds2)
 
