@@ -1,12 +1,12 @@
-# Laamu Coral Reefs
+# Laamu Coral Reef Monitoring
 
-This repository contains code and data necessary to replicate data analysis and figures in "Monitoring Changes in Benthic Communities on Coral Reefs in Laamu Atoll, Maldives", submitted as thesis project for the MSc Marine Environmental Management at the University of Exeter by Mara Fischer.
+This repository contains code and data necessary to replicate data analysis and figures in *"Monitoring Changes in Benthic Communities on Coral Reefs in Laamu Atoll, Maldives"*, submitted by Mara Fischer as thesis project for the MSc Marine Environmental Management at the University of Exeter.
 
 ## Navigation
 
-- [Code](https://github.com/EdDataScienceEES/tutorial-mfischer-edi/tree/master/code): Contains scripts to complete data analysis and plot figures
-- [Data](https://github.com/EdDataScienceEES/tutorial-mfischer-edi/tree/master/data): Contains data necessary to run the scripts
-- [Outputs](https://github.com/EdDataScienceEES/tutorial-mfischer-edi/tree/master/outputs): Contains outputs from the scripts
+- [Code](https://github.com/mfischer-edi/LaamuHub/tree/main/code): Contains script to run data analysis and plot figures
+- [Data](https://github.com/mfischer-edi/LaamuHub/tree/main/data): Contains data necessary to run the script
+- [Outputs](https://github.com/mfischer-edi/LaamuHub/tree/main/outputs): Contains outputs from the script
 
 ## Data
 
@@ -16,11 +16,11 @@ The data were collected by Maldives Reslient Reefs, Blue Marine Foundation, and 
 
 ### Software
 
-R version 4.0.3 or greater
+R version 4.2.1 or greater
 
 ### Packages
 
-`tidyverse` `lme4` `DHARMa` `ggeffects` `vegan`
+`dplyr, tidyr, ggplot2, cowplot, vegan, lme4, lmerTest, DHARMa, MuMIn, ggeffects`
 
 *Contact: Mara Fischer, mf555@exeter.ac.uk*
 
