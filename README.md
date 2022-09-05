@@ -16,11 +16,13 @@ The data were collected by Maldives Reslient Reefs, Blue Marine Foundation, and 
 
 ### Software
 
-R version 4.0.3 or greater
+R version 4.2.1 or greater
 
 ### Packages
 
 `tidyverse` `lme4` `DHARMa` `ggeffects` `vegan`
+
+`dplyr, tidyr, ggplot2, cowplot, vegan, lme4, lmerTest, DHARMa, MuMIn, ggeffects`
 
 *Contact: Mara Fischer, mf555@exeter.ac.uk*
 
