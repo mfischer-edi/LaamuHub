@@ -619,7 +619,7 @@ save_plot(time_change_cor, filename = "outputs/cor_change.png", base_height = 6,
 change <- change %>% 
   mutate(pos = perc.change >= 0)
 
-## % change bar plot ----
+## Perc. change bar plot ----
 
 (cor.perc.change.plot <- ggplot(change, aes(x = reorder(Site, desc(perc.change)), 
                                             y = perc.change, fill = pos)) +
