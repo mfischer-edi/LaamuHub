@@ -1,6 +1,6 @@
 # Laamu Coral Reef Monitoring
 
-This repository contains code and data necessary to replicate data analysis and figures in "Monitoring Changes in Benthic Communities on Coral Reefs in Laamu Atoll, Maldives", submitted as thesis project for the MSc Marine Environmental Management at the University of Exeter by Mara Fischer.
+This repository contains code and data necessary to replicate data analysis and figures in *"Monitoring Changes in Benthic Communities on Coral Reefs in Laamu Atoll, Maldives"*, submitted by Mara Fischer as thesis project for the MSc Marine Environmental Management at the University of Exeter.
 
 ## Navigation
 
