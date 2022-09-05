@@ -89,7 +89,6 @@ ordiplot(nmds2, type = "n")
 orditorp(nmds2, display = "species", col = "red", air = 0.01)
 orditorp(nmds2, display = "site", cex = 1.1, air = 0.01)
 
-#data.scores2 <- as.data.frame(scores(nmds2))
 data.scores2 <- as.data.frame(nmds2$points)
 nmds_all2 <- cbind(data2, data.scores2)
 
@@ -165,7 +164,7 @@ set.seed(1506)
 
 nmds_dep <- metaMDS(data1, k = 2, trymax = 100, trace = F, autotransform = FALSE, distance="bray")
 nmds_dep
-#Stress: 0.15548
+
 stressplot(nmds_dep)
 plot(nmds_dep)
 
@@ -173,7 +172,6 @@ ordiplot(nmds_dep, type = "n")
 orditorp(nmds_dep, display = "species", col = "red", air = 0.01)
 orditorp(nmds_dep, display = "site", cex = 1.1, air = 0.01)
 
-#data.scores2 <- as.data.frame(scores(nmds_dep))
 data.scores2 <- as.data.frame(nmds_dep$points)
 nmds_all2 <- cbind(data2, data.scores2)
 
@@ -223,7 +221,7 @@ set.seed(1506)
 
 nmds_rt <- metaMDS(data1, k = 2, trymax = 100, trace = F, autotransform = FALSE, distance="bray")
 nmds_rt
-#Stress: 0.15548
+
 stressplot(nmds_rt)
 plot(nmds_rt)
 
@@ -231,7 +229,6 @@ ordiplot(nmds_rt, type = "n")
 orditorp(nmds_rt, display = "species", col = "red", air = 0.01)
 orditorp(nmds_rt, display = "site", cex = 1.1, air = 0.01)
 
-#data.scores2 <- as.data.frame(scores(nmds_dep))
 data.scores2 <- as.data.frame(nmds_rt$points)
 nmds_all2 <- cbind(data2, data.scores2)
 
@@ -304,7 +301,7 @@ set.seed(1506)
 
 nmds2 <- metaMDS(data1, k = 2, trymax = 100, trace = F, autotransform = FALSE, distance="bray")
 nmds2
-#Stress: 0.0.1165353
+
 stressplot(nmds2)
 plot(nmds2)
 
@@ -312,7 +309,6 @@ ordiplot(nmds2, type = "n")
 orditorp(nmds2, display = "species", col = "red", air = 0.01)
 orditorp(nmds2, display = "site", cex = 1.1, air = 0.01)
 
-#data.scores2 <- as.data.frame(scores(nmds2))
 data.scores2 <- as.data.frame(nmds2$points)
 nmds_all2 <- cbind(data2, data.scores2)
 
