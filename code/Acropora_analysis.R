@@ -457,6 +457,12 @@ plot(m2)
 simulateResiduals(m2, plot = T)  # red! (homogeneity of variance sig.)
 anova(m2)  # n.s
 
+## Difference between sites ----
+
+m3 <- lm(Acropora ~ Site.name, data = perc_rep)
+summary(m3)
+plot(m3)
+simulateResiduals(m3, plot = T)  # bad fit
 
 
 
