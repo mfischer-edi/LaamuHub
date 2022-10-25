@@ -82,6 +82,21 @@ unique(perc_all22$Rep) # 2 reps
 perc_all22 <- perc_all22 %>% 
   select(- S, - D, - Photo)
 
+## Aggregate at site level (for GIS) ----
+
+perc_site <- perc_all22 %>% 
+  group_by(Site.name) %>% 
+  summarise(Reef.type = unique(Reef.type), 
+            Acropora = mean(Acropora), Other.coral = mean(Coral),
+            Total.coral = mean(Total.coral), 
+            Bleached.Acropora = mean(Bleached.Acropora),
+            Bleached.other.coral = mean(Bleached.Coral),
+            Total.bleached = mean(Bleached.Acropora) + mean(Bleached.Coral),
+            Acropora.perc = Acropora/Total.coral * 100) %>% 
+  ungroup()
+
+write.csv(perc_site, "data/Acro_site.csv")
+
 ## Aggregate at replicate level ----
 perc_rep <- perc_all22 %>% 
   group_by(Site.name, Depth, Rep) %>% 
