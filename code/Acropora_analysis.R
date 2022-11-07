@@ -440,7 +440,7 @@ perc_rep_long$Cover <- factor(perc_rep_long$Cover,
           plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
 )
 
-# Same as pie chart
+# Same but as pie chart
 
 # Make subset with averaged proportions
 coral_prop <- perc_rep_long %>% 
