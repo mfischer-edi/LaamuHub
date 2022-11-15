@@ -39,12 +39,6 @@ theme_diss <- function(){
                                            size = 2, linetype = "blank"))
 }
 
-# Load data ----
-
-abun19 <- read.csv("data/2019_fish_abun.csv", header = T) # raw fish abundance
-
-unique(abun19$family)
-
 # Data wrangling ----
 
 ## Olhutholhu inside ----
@@ -136,7 +130,124 @@ abun_site_agg22 <- raw_fish22 %>%
 
 write.csv(abun_site_agg22, "data/abun_site_2022.csv")
 
+## 2019 abundance data ----
 
+abun19 <- read.csv("data/abun_site_species_2019.csv", header = T)
 
+# full abundance data for 2019 but aggregated by site and species,
+# no distinction between depths or replicates
 
+unique(abun19$site_id) # 20 repeat sites
+unique(abun19$reef_type) # 4
+unique(abun19$family) # 7, but including SL
+unique(abun19$species) # 96 spp.
 
+## Combine 2019 & 2022 abundance data ----
+
+# Rename columns so they are the same
+abun_site22 <- abun_site22 %>% 
+  rename(Site.id = Site)
+
+abun19 <- abun19 %>% 
+  rename(Site.id = site_id, Site.name = site, reef.type = reef_type,
+         Family = family, Species = species)
+
+# Select only the 20 repeat sites from 2022 data
+abun_site22_repeat <- abun_site22 %>% 
+  filter(Site.id %in% c("OR", "OI", "FI", "LF", "FK", "HC", "MBO", "MBI", "GI", "PT",
+                      "FO", "HW", "KO", "MC", "GO", "MI", "MO", "OC", "RDH", "HI")) 
+  
+# Change into factors
+abun_site22_repeat <- abun_site22_repeat %>% 
+  mutate(across(c(Site.id, Site.name, reef.type, year), as.factor))
+
+abun19 <- abun19 %>% 
+  mutate(across(c(Site.id, Site.name, reef.type, year), as.factor))
+
+# Combine both years
+abun_19_22 <- bind_rows(abun19, abun_site22_repeat)
+
+unique(abun_19_22$Family)
+
+# Select the six families that were surveyed in both years (and remove SL)
+abun_19_22 <- abun_19_22 %>% 
+  filter(Family %in% c("BUT", "EMP", "GRO", "PAR", "SNAP", "TRIG"))
+
+# Add column for commercially vs ecologically important
+abun_19_22 <- abun_19_22 %>% 
+  mutate(Status = case_when(Family == "BUT" | Family == "PAR" | Family == "TRIG" ~ "ECO",
+                            Family == "EMP" | Family == "GRO" | Family == "SNAP" ~ "COM"))
+
+# Save this as final abundance dataset!
+
+write.csv(abun_19_22, "data/FISH_ABUN_19_22.csv")
+
+# Combine coral and fish data ----
+
+# Import coral data aggregated by site
+
+coral <- read.csv("data/perc_site.csv", header = T)
+
+coral <- coral %>% 
+  rename(Site.id = Site.ID, Site.name = Site, reef.type = Reef.type)
+
+# Join to fish abun
+
+abun_coral <- dplyr::left_join(abun_19_22, coral, by = "Site.id")
+## this doesn't really work
+
+# Aggregate total abundance at site level (all species combined)
+
+abun_19_22_site <- abun_19_22 %>% 
+  group_by(Site.id, year) %>% 
+  summarise(Site.name = unique(Site.name), reef.type = unique(reef.type),
+            abundance = sum(count)) %>% 
+  ungroup()
+
+# Double check this:
+test <- abun_19_22 %>% 
+  filter(Site.id == "FI")
+
+sum(test$count)
+## adds up yes
+
+# Remove pink thila as no coral data for that
+abun_19_22_site <- abun_19_22_site %>% 
+  filter(Site.id != "PT")
+
+# Simplify coral dataset
+coral2 <- coral %>% 
+  select(Site.id, year, Hard.coral)
+
+# Add coral data to this instead
+
+abun_coral_site <- left_join(abun_19_22_site, coral2, by = c("Site.id", "year"))
+
+## Dataset with two rows per site, one for each year
+
+write.csv(abun_coral_site, "data/abun_coral_site.csv")
+
+# ANALYSIS ----
+
+## Coral vs abun (all) ----
+
+abun_coral_site <- read.csv("data/abun_coral_site.csv", header = T)
+
+plot(abun_coral_site$Hard.coral ~ abun_coral_site$abundance)
+
+# one big outlier for abundance (maavah outside)
+
+# Remove outlier and plot again
+abun_coral_site2 <- abun_coral_site %>% 
+  filter(Site.id != "MO")
+
+plot(abun_coral_site2$Hard.coral ~ abun_coral_site2$abundance) # weak pos trend
+
+# Simple LM
+
+lm1 <- lm(Hard.coral ~ abundance, data = abun_coral_site2)
+summary(lm1)  # abundance has a significant weak positive effect on coral cover
+plot(lm1)
+
+lm2 <- lm(Hard.coral ~ abundance + year + abundance*year, data = abun_coral_site2)
+summary(lm2)
